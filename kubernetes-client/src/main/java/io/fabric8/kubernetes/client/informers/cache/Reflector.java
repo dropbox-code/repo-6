@@ -78,7 +78,7 @@ public class Reflector<T extends HasMetadata, L extends KubernetesResourceList<T
     Set<String> nextKeys = new LinkedHashSet<>();
     do {
       result = listerWatcher
-          .list(new ListOptionsBuilder().withLimit(listerWatcher.getLimit()).withContinue(continueVal).build());
+          .list(new ListOptionsBuilder().withLimit(listerWatcher.getLimit()).withContinue(continueVal).withAllowWatchBookmarks(false).build());
       result.getItems().forEach(i -> {
         String key = store.getKey(i);
         // process the updates immediately so we don't need to hold the item
@@ -105,6 +105,7 @@ public class Reflector<T extends HasMetadata, L extends KubernetesResourceList<T
     watch.set(
         listerWatcher.watch(new ListOptionsBuilder().withResourceVersion(latestResourceVersion)
             .withTimeoutSeconds(null)
+            .withAllowWatchBookmarks(false)
             .build(), watcher));
     watching = true;
   }
