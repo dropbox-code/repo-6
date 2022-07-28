@@ -137,7 +137,14 @@ public class Reflector<T extends HasMetadata, L extends KubernetesResourceList<T
         throw new KubernetesClientException("Unrecognized resource");  
       }
       if (log.isDebugEnabled()) {
-        log.debug("Event received {} {} resourceVersion {}", action.name(), resource.getKind(), resource.getMetadata().getResourceVersion());
+        log.debug(
+          "Event received {} {} {}: resourceVersion {}, resource: {}",
+          action.name(),
+          resource.getKind(),
+          resource.getMetadata().getName(),
+          resource.getMetadata().getResourceVersion(),
+          resource
+        );
       }
       switch (action) {
         case ERROR:
