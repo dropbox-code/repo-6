@@ -15,6 +15,7 @@
  */
 package io.fabric8.crd.generator.v1;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.fabric8.crd.example.annotated.Annotated;
 import io.fabric8.crd.example.basic.Basic;
@@ -32,7 +33,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static io.fabric8.crd.generator.CRDGenerator.YAML_MAPPER;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class JsonSchemaTest {
 
@@ -72,7 +79,7 @@ class JsonSchemaTest {
   }
 
   @Test
-  void shouldAugmentPropertiesSchemaFromAnnotations() {
+  void shouldAugmentPropertiesSchemaFromAnnotations() throws JsonProcessingException {
     TypeDef annotated = Types.typeDefFrom(Annotated.class);
     JSONSchemaProps schema = JsonSchema.from(annotated);
     assertNotNull(schema);
@@ -80,7 +87,7 @@ class JsonSchemaTest {
     assertEquals(2, properties.size());
     final JSONSchemaProps specSchema = properties.get("spec");
     Map<String, JSONSchemaProps> spec = specSchema.getProperties();
-    assertEquals(11, spec.size());
+    assertEquals(12, spec.size());
 
     // check descriptions are present
     assertTrue(spec.containsKey("from-field"));
@@ -98,28 +105,39 @@ class JsonSchemaTest {
     assertTrue(spec.containsKey("anEnum"));
 
     final JSONSchemaProps min = spec.get("min");
+    assertNull(min.getDefault());
     assertEquals(-5.0, min.getMinimum());
     assertNull(min.getMaximum());
     assertNull(min.getPattern());
     assertNull(min.getNullable());
 
     final JSONSchemaProps max = spec.get("max");
+    assertNull(max.getDefault());
     assertEquals(5.0, max.getMaximum());
     assertNull(max.getMinimum());
     assertNull(max.getPattern());
     assertNull(max.getNullable());
 
     final JSONSchemaProps pattern = spec.get("singleDigit");
+    assertNull(pattern.getDefault());
     assertEquals("\\b[1-9]\\b", pattern.getPattern());
     assertNull(pattern.getMinimum());
     assertNull(pattern.getMaximum());
     assertNull(pattern.getNullable());
 
     final JSONSchemaProps nullable = spec.get("nullable");
+    assertNull(nullable.getDefault());
     assertTrue(nullable.getNullable());
     assertNull(nullable.getMinimum());
     assertNull(nullable.getMaximum());
     assertNull(nullable.getPattern());
+
+    final JSONSchemaProps defaultValue = spec.get("defaultValue");
+    assertEquals("my-value", YAML_MAPPER.writeValueAsString(defaultValue.getDefault()).trim());
+    assertNull(defaultValue.getNullable());
+    assertNull(defaultValue.getMinimum());
+    assertNull(defaultValue.getMaximum());
+    assertNull(defaultValue.getPattern());
 
     // check required list, should register properties with their modified name if needed
     final List<String> required = specSchema.getRequired();

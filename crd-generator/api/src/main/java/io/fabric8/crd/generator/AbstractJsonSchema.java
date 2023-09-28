@@ -84,6 +84,7 @@ public abstract class AbstractJsonSchema<T, B> {
   public static final String ANNOTATION_JSON_IGNORE = "com.fasterxml.jackson.annotation.JsonIgnore";
   public static final String ANNOTATION_JSON_ANY_GETTER = "com.fasterxml.jackson.annotation.JsonAnyGetter";
   public static final String ANNOTATION_JSON_ANY_SETTER = "com.fasterxml.jackson.annotation.JsonAnySetter";
+  public static final String ANNOTATION_DEFAULT = "io.fabric8.generator.annotation.Default";
   public static final String ANNOTATION_MIN = "io.fabric8.generator.annotation.Min";
   public static final String ANNOTATION_MAX = "io.fabric8.generator.annotation.Max";
   public static final String ANNOTATION_PATTERN = "io.fabric8.generator.annotation.Pattern";
@@ -123,6 +124,7 @@ public abstract class AbstractJsonSchema<T, B> {
   }
 
   protected static class SchemaPropsOptions {
+    final String defaultValue;
     final Double min;
     final Double max;
     final String pattern;
@@ -132,6 +134,7 @@ public abstract class AbstractJsonSchema<T, B> {
     final boolean preserveUnknownFields;
 
     SchemaPropsOptions() {
+      defaultValue = null;
       min = null;
       max = null;
       pattern = null;
@@ -140,14 +143,19 @@ public abstract class AbstractJsonSchema<T, B> {
       preserveUnknownFields = false;
     }
 
-    public SchemaPropsOptions(Double min, Double max, String pattern,
+    public SchemaPropsOptions(String defaultValue, Double min, Double max, String pattern,
         boolean nullable, boolean required, boolean preserveUnknownFields) {
+      this.defaultValue = defaultValue;
       this.min = min;
       this.max = max;
       this.pattern = pattern;
       this.nullable = nullable;
       this.required = required;
       this.preserveUnknownFields = preserveUnknownFields;
+    }
+
+    public Optional<String> getDefault() {
+      return Optional.ofNullable(defaultValue);
     }
 
     public Optional<Double> getMin() {
@@ -331,6 +339,7 @@ public abstract class AbstractJsonSchema<T, B> {
       }
 
       SchemaPropsOptions options = new SchemaPropsOptions(
+          facade.defaultValue,
           facade.min,
           facade.max,
           facade.pattern,
@@ -361,6 +370,7 @@ public abstract class AbstractJsonSchema<T, B> {
     private final String propertyName;
     private final String type;
     private String renamedTo;
+    private String defaultValue;
     private Double min;
     private Double max;
     private String pattern;
@@ -389,6 +399,9 @@ public abstract class AbstractJsonSchema<T, B> {
     public void process() {
       annotations.forEach(a -> {
         switch (a.getClassRef().getFullyQualifiedName()) {
+          case ANNOTATION_DEFAULT:
+            defaultValue = (String) a.getParameters().get(VALUE);
+            break;
           case ANNOTATION_NULLABLE:
             nullable = true;
             break;
@@ -442,6 +455,10 @@ public abstract class AbstractJsonSchema<T, B> {
 
     public boolean isNullable() {
       return nullable;
+    }
+
+    public Optional<String> getDefault() {
+      return Optional.ofNullable(defaultValue);
     }
 
     public Optional<Double> getMax() {
@@ -500,6 +517,7 @@ public abstract class AbstractJsonSchema<T, B> {
     private final Set<InternalSchemaSwap> matchedSchemaSwaps;
     private String renamedTo;
     private String description;
+    private String defaultValue;
     private Double min;
     private Double max;
     private String pattern;
@@ -531,6 +549,7 @@ public abstract class AbstractJsonSchema<T, B> {
       if (method != null) {
         propertyOrAccessors.add(PropertyOrAccessor.fromMethod(method, name));
       }
+      defaultValue = null;
       min = null;
       max = null;
       pattern = null;
@@ -569,6 +588,7 @@ public abstract class AbstractJsonSchema<T, B> {
             LOGGER.debug("Description for property {} has already been contributed by: {}", name, descriptionContributedBy);
           }
         }
+        defaultValue = p.getDefault().orElse(null);
         min = p.getMin().orElse(min);
         max = p.getMax().orElse(max);
         pattern = p.getPattern().orElse(pattern);
