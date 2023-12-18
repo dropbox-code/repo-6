@@ -239,7 +239,7 @@ public abstract class AbstractJsonSchema<T, B> {
 
     for (Property property : definition.getProperties()) {
       String name = property.getName();
-      if (property.isStatic() || ignores.contains(name)) {
+      if (property.isStatic() || property.isTransient() || ignores.contains(name)) {
         LOGGER.debug("Ignoring property {}", name);
         continue;
       }
