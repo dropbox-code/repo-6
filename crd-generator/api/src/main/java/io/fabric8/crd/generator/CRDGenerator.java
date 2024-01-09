@@ -41,7 +41,7 @@ public class CRDGenerator {
   private CRDOutput<? extends OutputStream> output;
   private Map<String, CustomResourceInfo> infos;
 
-  private static final ObjectMapper YAML_MAPPER = new ObjectMapper(
+  public static final ObjectMapper YAML_MAPPER = new ObjectMapper(
     new YAMLFactory()
       .enable(Feature.MINIMIZE_QUOTES)
       .enable(Feature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS)

@@ -158,6 +158,30 @@ If a field or one of its accessors is annotated with `io.fabric8.generator.annot
 
 ```java
 public class ExampleSpec {
+  @Default("foo")
+  String someValue;
+}
+```
+
+The field will have the `default` property in the generated CRD, such as:
+
+```yaml
+          spec:
+            properties:
+              someValue:
+                default: foo
+                type: string
+            required:
+            - someValue
+            type: object
+```
+
+### io.fabric8.generator.annotation.Min
+
+If a field or one of its accessors is annotated with `io.fabric8.generator.annotation.Min`
+
+```java
+public class ExampleSpec {
   @Min(-1)
   int someValue;
 }
@@ -357,21 +381,44 @@ Corresponding `x-kubernetes-preserve-unknown-fields: true` will be generated in 
             x-kubernetes-preserve-unknown-fields: true
 ```
 
+You can also annotate a field with `io.fabric8.crd.generator.annotation.PreserveUnknownFields`:
+
+```java
+interface ExampleInterface {}
+
+public class ExampleSpec {
+    @PreserveUnknownFields
+    ExampleInterface someValue;
+}
+```
+
+will be generated as:
+
+```yaml
+          spec:
+            properties:
+              someValue:
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
+            type: object
+```
+
 ## Features cheatsheet
 
-| Annotation | Description |
-|-----------------------------------------------------------|---------------------------------------------------------------------------------------|
-| `com.fasterxml.jackson.annotation.JsonProperty`           | The field is named after the provided value instead of looking up the java field name |
-| `com.fasterxml.jackson.annotation.JsonPropertyDescription`| The provided text is be embedded in the `description` of the field                    |
-| `com.fasterxml.jackson.annotation.JsonIgnore`             | The field is ignored                                                                  |
-| `com.fasterxml.jackson.annotation.JsonAnyGetter`          | The corresponding object have `x-kubernetes-preserve-unknown-fields: true` defined    |
-| `com.fasterxml.jackson.annotation.JsonAnySetter`          | The corresponding object have `x-kubernetes-preserve-unknown-fields: true` defined    |
-| `io.fabric8.generator.annotation.Min`                     | The field defines a validation `min`                                                  |
-| `io.fabric8.generator.annotation.Max`                     | The field defines a validation `max`                                                  |
-| `io.fabric8.generator.annotation.Pattern`                 | The field defines a validation `pattern`                                              |
-| `io.fabric8.generator.annotation.Nullable`                | The field is marked as `nullable`                                                     |
-| `io.fabric8.generator.annotation.Required`                | The field is marked as `required`                                                     |
-| `io.fabric8.crd.generator.annotation.SchemaFrom`          | The field type for the generation is the one coming from the annotation               |
-| `io.fabric8.crd.generator.annotation.SchemaSwap`          | Same as SchemaFrom, but can be applied at any point in the class hierarchy            |
+| Annotation                                                   | Description                                                                           |
+|--------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| `com.fasterxml.jackson.annotation.JsonProperty`              | The field is named after the provided value instead of looking up the java field name |
+| `com.fasterxml.jackson.annotation.JsonPropertyDescription`   | The provided text is be embedded in the `description` of the field                    |
+| `com.fasterxml.jackson.annotation.JsonIgnore`                | The field is ignored                                                                  |
+| `io.fabric8.crd.generator.annotation.PreserveUnknownFields`  | The field have `x-kubernetes-preserve-unknown-fields: true` defined                   |
+| `com.fasterxml.jackson.annotation.JsonAnyGetter`             | The corresponding object have `x-kubernetes-preserve-unknown-fields: true` defined    |
+| `com.fasterxml.jackson.annotation.JsonAnySetter`             | The corresponding object have `x-kubernetes-preserve-unknown-fields: true` defined    |
+| `io.fabric8.generator.annotation.Min`                        | The field defines a validation `min`                                                  |
+| `io.fabric8.generator.annotation.Max`                        | The field defines a validation `max`                                                  |
+| `io.fabric8.generator.annotation.Pattern`                    | The field defines a validation `pattern`                                              |
+| `io.fabric8.generator.annotation.Nullable`                   | The field is marked as `nullable`                                                     |
+| `io.fabric8.generator.annotation.Required`                   | The field is marked as `required`                                                     |
+| `io.fabric8.crd.generator.annotation.SchemaFrom`             | The field type for the generation is the one coming from the annotation               |
+| `io.fabric8.crd.generator.annotation.SchemaSwap`             | Same as SchemaFrom, but can be applied at any point in the class hierarchy            |
 
 A field of type `com.fasterxml.jackson.databind.JsonNode` is encoded as an empty object with `x-kubernetes-preserve-unknown-fields: true` defined.

@@ -18,6 +18,7 @@ package io.fabric8.crd.example.annotated;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import io.fabric8.generator.annotation.Default;
 import io.fabric8.generator.annotation.Max;
 import io.fabric8.generator.annotation.Min;
 import io.fabric8.generator.annotation.Nullable;
@@ -37,7 +38,8 @@ public class AnnotatedSpec {
   private int max;
   private String singleDigit;
   private String nullable;
-  @NotNull
+  private String defaultValue;
+  @Required
   private boolean emptySetter;
   @Required
   private boolean emptySetter2;
@@ -84,6 +86,11 @@ public class AnnotatedSpec {
   @Nullable
   public String getNullable() {
     return null;
+  }
+
+  @Default("my-value")
+  public String getDefaultValue() {
+    return "foo";
   }
 
   @JsonProperty

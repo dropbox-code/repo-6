@@ -13,17 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.fabric8.crd.example.extraction;
+package io.fabric8.generator.annotation;
 
-import io.fabric8.crd.generator.annotation.PreserveUnknownFields;
-import io.fabric8.crd.generator.annotation.SchemaFrom;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public class ExtractionSpec {
-
-  @SchemaFrom(type = FooExtractor.class)
-  private Foo foo;
-
-  @PreserveUnknownFields
-  private Foo bar;
-
+/*
+ * Java representation of the `default` field of JSONSchemaProps
+ * https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#jsonschemaprops-v1-apiextensions-k8s-io
+ */
+@Target({ ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.METHOD })
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Default {
+  String value();
 }
