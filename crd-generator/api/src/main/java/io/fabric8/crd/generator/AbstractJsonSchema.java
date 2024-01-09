@@ -392,13 +392,11 @@ public abstract class AbstractJsonSchema<T, B> {
       TypeDef def = Types.typeDefFrom(classRef);
 
       Map<String, TypeRef> mappings = new HashMap<>();
-      if(!def.getParameters().isEmpty()) {
-        for(int i=0; i<def.getParameters().size(); i++) {
-          mappings.put(
-            def.getParameters().get(i).getName(),
-            parentMappings.exchange(classRef.getArguments().get(i))
-          );
-        }
+      for(int i=0; i<def.getParameters().size(); i++) {
+        mappings.put(
+          def.getParameters().get(i).getName(),
+          parentMappings.exchange(classRef.getArguments().get(i))
+        );
       }
 
       return new ParameterMap(mappings);
