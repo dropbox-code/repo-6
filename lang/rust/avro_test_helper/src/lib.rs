@@ -17,14 +17,13 @@
 
 #[cfg(not(target_arch = "wasm32"))]
 use ctor::{ctor, dtor};
+use std::cell::RefCell;
 
-use ref_thread_local::ref_thread_local;
-
-ref_thread_local! {
+thread_local! {
     // The unit tests run in parallel
     // We need to keep the log messages in a thread-local variable
     // and clear them after assertion
-    pub(crate) static managed LOG_MESSAGES: Vec<String> = Vec::new();
+    pub(crate) static LOG_MESSAGES: RefCell<Vec<String>> = const { RefCell::new(Vec::new()) };
 }
 
 pub mod logger;
@@ -33,7 +32,11 @@ pub mod logger;
 #[ctor]
 fn before_all() {
     // better stacktraces in tests
-    color_backtrace::install();
+    better_panic::Settings::new()
+        .most_recent_first(true)
+        .lineno_suffix(false)
+        .backtrace_first(true)
+        .install();
 
     // enable logging in tests
     logger::install();
@@ -44,6 +47,22 @@ fn before_all() {
 fn after_all() {
     logger::clear_log_messages();
 }
+
+/// A custom error type for tests.
+#[derive(Debug)]
+pub enum TestError {}
+
+/// A converter of any error into [TestError].
+/// It is used to print better error messages in the tests.
+/// Borrowed from <https://bluxte.net/musings/2023/01/08/improving_failure_messages_rust_tests/>
+impl<Err: std::fmt::Display> From<Err> for TestError {
+    #[track_caller]
+    fn from(err: Err) -> Self {
+        panic!("{}: {}", std::any::type_name::<Err>(), err);
+    }
+}
+
+pub type TestResult = anyhow::Result<(), TestError>;
 
 /// Does nothing. Just loads the crate.
 /// Should be used in the integration tests, because they do not use [dev-dependencies]

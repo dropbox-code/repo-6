@@ -1,7 +1,7 @@
 ---
 title: "How to contribute"
 linkTitle: "How to contribute"
-weight: 3
+weight: 5
 ---
 
 <!--
@@ -35,7 +35,6 @@ The easiest way is to clone or fork the GitHub mirror:
 git clone https://github.com/apache/avro.git -o github
 ```
 
-
 ## Making Changes
 
 Before you start, file an issue in [JIRA](https://issues.apache.org/jira/browse/AVRO) or discuss your ideas on the [Avro developer mailing list](http://avro.apache.org/mailing_lists.html). Describe your proposed changes and check that they fit in with what others are doing and have planned for the project. Be patient, it may take folks a while to understand your requirements.
@@ -65,7 +64,7 @@ But take care about the following points
 
 ## Code Style (Autoformatting)
 
-For Java code we use [Spotless](https://github.com/diffplug/spotless/) to format the code to comply with Avro's code style conventions (see above). Automatic formatting relies on [Avro's Eclipse JDT formatter definition](https://github.com/apache/avro/blob/master/lang/java/eclipse-java-formatter.xml). You can use the same definition to auto format from Eclipse or from IntelliJ configuring the Eclipse formatter plugin.
+For Java code we use [Spotless](https://github.com/diffplug/spotless/) to format the code to comply with Avro's code style conventions (see above). Automatic formatting relies on [Avro's Eclipse JDT formatter definition](https://github.com/apache/avro/blob/main/lang/java/eclipse-java-formatter.xml). You can use the same definition to auto format from Eclipse or from IntelliJ configuring the Eclipse formatter plugin.
 
 If you use maven code styles issues are checked at the compile phase. If your code breaks because of bad formatting, you can format it automatically by running the command:
 ```shell
@@ -258,7 +257,7 @@ Committers: for non-trivial changes, it is best to get another committer to revi
 
 Apply the patch uploaded by the user or check out their pull request. Edit the CHANGES.txt file, adding a description of the change, including the bug number it fixes. Add it to the appropriate section - BUGFIXES, IMPROVEMENTS, NEW FEATURES. Please follow the format in CHANGES.txt file. While adding an entry please add it to the end of a section. Use the same entry for the first line of the git commit message.
 
-Changes are normally committed to master first, then, if they're backward-compatible, cherry-picked to a branch.
+Changes are normally committed to the main branch first, then, if they're backward-compatible, cherry-picked to a branch.
 
 When you commit a change, resolve the issue in Jira. When resolving, always set the fix version and assign the issue. Set the fix version to either to the next minor release if the change is compatible and will be merged to that branch, or to the next major release if the change is incompatible and will only be committed to trunk. Assign the issue to the primary author of the patch. If the author is not in the list of project contributors, edit their Jira roles and make them an Avro contributor.
 </details>
@@ -276,7 +275,114 @@ Please refrain from editing descriptions and comments if possible, as edits spam
 
 Contributors should join the Avro mailing lists. In particular, the commit list (to see changes as they are made), the dev list (to join discussions of changes) and the user list (to help others).
 
+## Workflow
+
+Building and running the site locally requires a recent extended version of Hugo. Install [Hugo](https://gohugo.io/installation/) for your environment. Once you've made your working copy of the site repo, from the repo root folder, run:
+
+```shell
+hugo server --navigateToChanged
+```
+Edit .md and .html files in content/ folder
+
+Once satisfied with the changes, commit them:
+```shell
+git commit -a
+```
+Generate the HTML file stop hugo server --navigateToChanged (with Ctrl+C) and run
+```shell
+hugo
+```
+This will generate the HTMLs in public/ folder and this is actually what is being deployed
+
+Add the modified HTML files to Git
+
+```shell
+git add .
+git rm offline-search-index.<<OLD-HASH>>.json
+git commit -a
+git push
+```
+This way even when the PR modifies a lot of files we can review only the first commit, the meaningful one, with the modified files in content/ folder
+
+
+## Running a container locally
+You can also run avro-website inside a Docker container, the container runs with a volume bound to the avro-website folder. This approach doesn't require you to install any dependencies other than Docker Desktop on Windows and Mac, and Docker Compose on Linux.
+
+Build the docker image
+
+```shell
+docker-compose build
+```
+Run the built image
+ ```shell
+docker-compose up
+```
+NOTE: You can run both commands at once with docker-compose up --build.
+
+Verify that the service is working.
+
+Open your web browser and type http://localhost:1313 in your navigation bar, This opens a local instance of the docsy-example homepage. You can now make changes to the docsy example and those changes will immediately show up in your browser after you save.
+
+**Cleanup**
+
+To stop Docker Compose, on your terminal window, press Ctrl + C.
+
+To remove the produced images run:
+ ```shell
+docker-compose rm
+```
+
+## Troubleshooting
+As you run the website locally, you may run into the following error:
+ ```shell
+➜ hugo server
+
+INFO 2021/01/21 21:07:55 Using config file: 
+Building sites … INFO 2021/01/21 21:07:55 syncing static files to /
+Built in 288 ms
+Error: Error building site: TOCSS: failed to transform "scss/main.scss" (text/x-scss): resource "scss/scss/main.scss_9fadf33d895a46083cdd64396b57ef68" not found in file cache
+ ```
+This error occurs if you have not installed the extended version of Hugo. See our user guide for instructions on how to install Hugo.
+
+## Edit content
+The website content is in content/en folder. It contains .md (Markdown) and .html (HTML) files.
+
+**Layouts**
+
+To change the layout of any page edit layouts/<page>/**.html. If there is no layout for a given page at that location then copy the one provided by the theme and edit it:
+ ```shell
+ cp themes/docsy/layouts/<xyz> layouts/<xyz>
+  ```
+**Avro version**
+
+When a new version of Apache Avro is released:
+
+Change the value of params.avroversion in config.toml
+Add a new entry to the Releases pages in the Blog section, for example:
+ ```shell
+cp content/en/blog/releases/avro-1.10.2-released.md content/en/blog/releases/avro-1.11.0-released.md
+ ```
+**API documentation for C/C++/C# modules**
+
+The API documentations for C/C++/C# are built by their respective build.sh dist implementations. The final HTML should be copied to the external folder, for example:
+ ```shell
+cp ../avro/build/avro-doc-1.12.0-SNAPSHOT/api/c/* content/en/docs/external/c/
+ ```
+
+## JIRA conventions
+
+Issue types: JIRA issues are categorized into different types such as bugs, improvements, new features, etc. Each issue type has a unique icon and a set of fields that are specific to that type.  
+
+Workflow: JIRA issues follow a predefined workflow that defines the steps that an issue goes through from creation to resolution. Each step in the workflow can have its own set of conditions and actions.
+
+Priority: JIRA allows users to set priorities for issues to help determine the order in which they should be addressed. The priority can be set to one of five levels: Blocker, Critical, Major, Minor, and Trivial. Blocker is the highest priority and Trivial is the lowest priority.
+
+Labels: Labels are used to tag issues with keywords or phrases that can help with searching and filtering.
+
+Components: Components are used to group related issues together. For example, a software project might have components for the user interface, database, and networking.
+
 ## See Also
 
 - [Apache contributor documentation](http://www.apache.org/dev/contributors.html)
 - [Apache voting documentation](http://www.apache.org/foundation/voting.html)
+
