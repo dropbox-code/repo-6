@@ -345,7 +345,7 @@ public abstract class AbstractJsonSchema<T, B> {
           facade.pattern,
           facade.nullable,
           facade.required,
-          facade.preserveUnknownFields);
+          facade.preserveUnknownFields || facade.isJsonAny);
 
       addProperty(possiblyRenamedProperty, builder, possiblyUpdatedSchema, options);
     }

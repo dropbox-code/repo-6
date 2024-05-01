@@ -185,6 +185,12 @@ class JsonSchemaTest {
     JSONSchemaProps fooField = spec.get("foo");
 
     assertTrue(fooField.getXKubernetesPreserveUnknownFields());
+
+    Map<String, JSONSchemaProps> fooProperties =  fooField.getProperties();
+    JSONSchemaProps configAsMapField = fooProperties.get("configAsMap");
+
+    assertNotNull(configAsMapField);
+    assertTrue(configAsMapField.getXKubernetesPreserveUnknownFields());
   }
 
   @Test
