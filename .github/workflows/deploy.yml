@@ -626,7 +626,7 @@ jobs:
         php-version: 7.2
     - continue-on-error: true
       name: Set up node and enable caching of dependencies
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         cache: yarn
         node-version: '14'
