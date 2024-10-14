@@ -798,7 +798,7 @@ jobs:
     - continue-on-error: true
       id: token
       name: Get installation token
-      uses: philips-software/app-token-action@v1.1.2
+      uses: philips-software/app-token-action@v2.0.0
       with:
         app_base64_private_key: ${{ secrets.FOREST_RELEASER_APP_PRIVATE_KEY_BASE64
           }}
