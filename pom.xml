@@ -86,7 +86,7 @@
     <okio.version>1.15.0</okio.version>
     <okio.bundle.version>1.15.0_1</okio.bundle.version>
     <jackson.version>2.13.1</jackson.version>
-    <mockwebserver.version>0.2.2</mockwebserver.version>
+    <mockwebserver.version>6.13.4</mockwebserver.version>
 
     <!-- API versions -->
     <jsr305.version>3.0.2</jsr305.version>
