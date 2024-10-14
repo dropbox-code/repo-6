@@ -514,7 +514,7 @@ jobs:
         path: ~/go/pkg/mod
     - continue-on-error: true
       name: goreleaser check
-      uses: goreleaser/goreleaser-action@v4
+      uses: goreleaser/goreleaser-action@v6
       with:
         args: check
     - name: after
