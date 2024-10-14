@@ -812,7 +812,7 @@ jobs:
     - continue-on-error: true
       id: release
       name: Release
-      uses: google-github-actions/release-please-action@5c07f8be172b1f6e90f9c35baf8184461b91b85f
+      uses: google-github-actions/release-please-action@e4dc86ba9405554aeba3c6bb2d169500e7d3b4ee
       with:
         default-branch: ${{ steps.branch.outputs.name }}
         release-type: terraform-module
