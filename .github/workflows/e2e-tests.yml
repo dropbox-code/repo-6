@@ -256,7 +256,7 @@ jobs:
       uses: actions/checkout@v3
     - continue-on-error: true
       name: Cache .m2 registry
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         key: cache-e2e-${{ github.sha }}-${{ github.run_id }}
         path: ~/.m2/repository
@@ -530,7 +530,7 @@ jobs:
         start args: --addons=metrics-server --force
     - continue-on-error: true
       name: Cache .m2 registry
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         key: cache-e2e-${{ github.sha }}-${{ github.run_id }}
         path: ~/.m2/repository
@@ -813,7 +813,7 @@ jobs:
         oc version: ${{ matrix.openshift }}
     - continue-on-error: true
       name: Cache .m2 registry
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         key: cache-e2e-${{ github.sha }}-${{ github.run_id }}
         path: ~/.m2/repository
