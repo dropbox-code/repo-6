@@ -528,7 +528,7 @@ jobs:
     - continue-on-error: true
       name: Install Composer dependencies, generate vendor_prefixed directory and
         run dependency injection
-      uses: ramsey/composer-install@v2
+      uses: ramsey/composer-install@v3
       with:
         custom-cache-suffix: $(/bin/date -u --date='last Mon' "+%F")
     - continue-on-error: true
@@ -549,7 +549,7 @@ jobs:
       run: composer config --unset platform.php
     - continue-on-error: true
       name: Install Composer dependencies
-      uses: ramsey/composer-install@v2
+      uses: ramsey/composer-install@v3
       with:
         composer-options: yoast/wp-test-utils --with-dependencies --no-scripts
         custom-cache-suffix: $(/bin/date -u --date='last Mon' "+%F")
@@ -888,7 +888,7 @@ jobs:
     - continue-on-error: true
       name: Install Composer dependencies, generate vendor_prefixed directory and
         run dependency injection
-      uses: ramsey/composer-install@v2
+      uses: ramsey/composer-install@v3
       with:
         custom-cache-suffix: $(/bin/date -u --date='last Mon' "+%F")
     - continue-on-error: true
@@ -909,7 +909,7 @@ jobs:
       run: composer config --unset platform.php
     - continue-on-error: true
       name: Install Composer dependencies
-      uses: ramsey/composer-install@v2
+      uses: ramsey/composer-install@v3
       with:
         composer-options: yoast/wp-test-utils --with-dependencies --no-scripts
         custom-cache-suffix: $(/bin/date -u --date='last Mon' "+%F")
