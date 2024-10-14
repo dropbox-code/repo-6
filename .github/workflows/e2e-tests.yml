@@ -253,7 +253,7 @@ jobs:
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
       name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4.2.1
     - continue-on-error: true
       name: Cache .m2 registry
       uses: actions/cache@v2
@@ -519,7 +519,7 @@ jobs:
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
       name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4.2.1
     - continue-on-error: true
       name: Setup Minikube-Kubernetes
       uses: manusa/actions-setup-minikube@v2.4.3
@@ -804,7 +804,7 @@ jobs:
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
       name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4.2.1
     - continue-on-error: true
       name: Setup OpenShift
       uses: manusa/actions-setup-openshift@v1.1.3
