@@ -20,7 +20,7 @@ require (
 	github.com/google/go-github/v42 v42.0.0
 	github.com/klauspost/compress v1.15.12
 	github.com/mattn/go-isatty v0.0.16
-	github.com/mongodb-forks/digest v1.0.4
+	github.com/mongodb-forks/digest v1.1.0
 	github.com/mongodb-labs/cobra2snooty v0.11.0
 	github.com/openlyinc/pointy v1.2.0
 	github.com/pelletier/go-toml v1.9.5
