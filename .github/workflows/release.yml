@@ -268,7 +268,7 @@ jobs:
     - continue-on-error: true
       if: github.event_name != 'pull_request'
       name: Login to GitHub Packages
-      uses: docker/login-action@v2.1.0
+      uses: docker/login-action@v3.3.0
       with:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
