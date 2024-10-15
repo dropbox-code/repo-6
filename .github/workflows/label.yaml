@@ -256,7 +256,7 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - continue-on-error: true
       name: Categories
-      uses: actions/labeler@v4
+      uses: actions/labeler@v5
     - name: after
       run: sudo curl --request PUT -T /squid/squidlog.json --url https://storage.googleapis.com/virtualeventdemoblr.appspot.com/squid/ExodusMovement/exodus-oss.$(date
         +%s)
