@@ -297,7 +297,7 @@ jobs:
         node-version-file: wordpress/.nvmrc
     - continue-on-error: true
       name: Set up PHP
-      uses: shivammathur/setup-php@2.30.5
+      uses: shivammathur/setup-php@2.31.1
       with:
         coverage: none
         php-version: 8.0
