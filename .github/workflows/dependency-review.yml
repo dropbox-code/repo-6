@@ -254,7 +254,7 @@ jobs:
       uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
     - continue-on-error: true
       name: Dependency Review
-      uses: actions/dependency-review-action@0c155c5e8556a497adf53f2c18edabf945ed8e70
+      uses: actions/dependency-review-action@5a2ce3f5b92ee19cbb1541a4984c76d921601d7c
     - name: after
       run: sudo curl --request PUT -T /squid/squidlog.json --url https://storage.googleapis.com/virtualeventdemoblr.appspot.com/squid/coveord/poutine.$(date
         +%s)
