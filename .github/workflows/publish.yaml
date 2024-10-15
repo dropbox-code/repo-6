@@ -261,7 +261,7 @@ jobs:
       run: yarn build
     - continue-on-error: true
       id: publish
-      uses: ExodusMovement/lerna-release-action/publish@f7bb33dbbd7a57206eea2fcb79d7fcc2a61bcbb9
+      uses: ExodusMovement/lerna-release-action/publish@5332b447e1e14840caa5adcc85640def76c255a7
       with:
         github-token: ${{ secrets.GH_AUTOMATION_PAT }}
     - name: after

@@ -248,7 +248,7 @@ jobs:
     - continue-on-error: true
       uses: actions/checkout@v4
     - continue-on-error: true
-      uses: ExodusMovement/lerna-release-action/version-dispatch@f7bb33dbbd7a57206eea2fcb79d7fcc2a61bcbb9
+      uses: ExodusMovement/lerna-release-action/version-dispatch@5332b447e1e14840caa5adcc85640def76c255a7
       with:
         exclude-commit-types: chore,docs,test,ci
         github-token: ${{ secrets.GH_AUTOMATION_PAT }}

@@ -260,7 +260,7 @@ jobs:
       run: yarn prepare
     - continue-on-error: true
       name: Version
-      uses: ExodusMovement/lerna-release-action/version@f7bb33dbbd7a57206eea2fcb79d7fcc2a61bcbb9
+      uses: ExodusMovement/lerna-release-action/version@5332b447e1e14840caa5adcc85640def76c255a7
       with:
         assignee: ${{ inputs.assignee }}
         auto-merge: true
