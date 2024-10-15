@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/aws/aws-sdk-go-v2/credentials v1.12.15
-	github.com/go-logr/logr v1.2.3
+	github.com/go-logr/logr v1.4.2
 	github.com/google/uuid v1.3.0
 	github.com/jetstack/cert-manager v1.7.2
 	github.com/onsi/ginkgo v1.16.5
