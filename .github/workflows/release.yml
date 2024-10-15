@@ -269,7 +269,7 @@ jobs:
       uses: sigstore/cosign-installer@59acb6260d9c0ba8f4a2f9d9b48431a222b68e20
     - continue-on-error: true
       id: homebrew-tapper-bot-token
-      uses: actions/create-github-app-token@7bfa3a4717ef143a604ee0a99d859b8886a96d00
+      uses: actions/create-github-app-token@5d869da34e18e7287c1daad50e0b8ea0f506ce69
       with:
         app-id: ${{ vars.HOMEBREW_TAPPER_BOT_APP_ID }}
         private-key: ${{ secrets.HOMEBREW_TAPPER_BOT_PRIVATE_KEY }}
