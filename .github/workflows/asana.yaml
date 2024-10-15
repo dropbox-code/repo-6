@@ -247,7 +247,7 @@ jobs:
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
       name: Asana Github Link
-      uses: ExodusMovement/asana-actions@e0e7c1f890fdeac81d502fc29a4562e1cefa40cc
+      uses: ExodusMovement/asana-actions@f9a189e20bcd50ca980d532df5e390621643871f
       with:
         asana_token: ${{ secrets.ASANA_TOKEN }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
