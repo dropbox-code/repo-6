@@ -26,7 +26,7 @@
     "@actions/core": "^1.2.3",
     "@actions/exec": "^1.0.4",
     "addressparser": "^1.0.1",
-    "openpgp": "^4.10.4"
+    "openpgp": "^5.11.2"
   },
   "devDependencies": {
     "@types/jest": "^25.2.2",
