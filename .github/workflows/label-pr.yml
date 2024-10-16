@@ -253,7 +253,7 @@ jobs:
     - continue-on-error: true
       id: file_changes
       name: Check for changed files
-      uses: dorny/paths-filter@v2
+      uses: dorny/paths-filter@v3
       with:
         filters: "docsUpdateRequired:\n  - 'src/flagd/**'\nhelmUpdateRequired:\n \
           \ - '.env'\n  - 'docker-compose*.yml'\n  - 'src/flagd/**'\n  - 'src/grafana/**'\n\
