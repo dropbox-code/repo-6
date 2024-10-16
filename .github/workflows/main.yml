@@ -248,7 +248,7 @@ jobs:
     - continue-on-error: true
       uses: actions/checkout@v4.1.6
     - continue-on-error: true
-      uses: reviewdog/action-actionlint@v1.46.0
+      uses: reviewdog/action-actionlint@v1.57.0
       with:
         fail_on_error: false
         level: warning
