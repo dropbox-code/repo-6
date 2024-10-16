@@ -247,7 +247,7 @@ jobs:
 
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
-      uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871
     - continue-on-error: true
       name: Set up Python 3.10
       uses: actions/setup-python@f677139bbe7f9c59b41e40162b753c062f5d49a3
@@ -296,7 +296,7 @@ jobs:
         \ nodepools\nkubectl get pods -A\nkubectl describe nodes\n"
       shell: bash
     - continue-on-error: true
-      uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871
       with:
         fetch-depth: 0
         path: ./karpenter_eval/
