@@ -1,0 +1,52 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "NBDev template repository (with VSCode niceities)",
+    "section": "",
+    "text": "You can clone this repo and use it as a template.\nOnce cloning it locally, run:\n    $ ./bootstrap.sh\nThis installs requirements, the semi-official, but experimental nbdev VSCode extension, and nbdev git pre-commit hooks. You will be prompted for your sudo password because it installs Quarto, which needs root access by default. ¯\\(ツ)/¯",
+    "crumbs": [
+      "NBDev template repository (with VSCode niceities)"
+    ]
+  },
+  {
+    "objectID": "index.html#committing-changes-to-git",
+    "href": "index.html#committing-changes-to-git",
+    "title": "NBDev template repository (with VSCode niceities)",
+    "section": "Committing changes to git",
+    "text": "Committing changes to git\nThis repository uses pre-commit hooks to cleanup the notebook before pushing.\n\nOption 1: The simplest way to do things is to run this script to ensure that things are ready to be committed:\n    ./scripts/nbdev_prepare.sh\n    # Now git commit as always\n\n\nOption 2: Rely upon pre-commit hooks:\nWhen you do a git commit in this repo that has pre-commit hooks installed, your new workflow will be as follows:\n\npre-commit runs each hook on your staged changes (as in, changes that you git added)\nIf a hook changes files – for example, if a commited notebook wasn’t cleaned – pre-commit stops the commit, leaving those changes as unstaged. (This won’t happen if you use nbdev_prepare!)\nYou can now stage those changes and make any edits required to get pre-commit to pass\nRedo the git commit, and if it succeeds, your commit will be created.\nUsing it in practice isn’t as complicated as it might sound. The best way to figure out if it works for you is to give it a try.\n\nIf you have questions, see this documentation about nbdev pre_commit\n\n\nMore details on nbdev:\nFor more on nbdev usage, follow the nbdev tutorial.",
+    "crumbs": [
+      "NBDev template repository (with VSCode niceities)"
+    ]
+  },
+  {
+    "objectID": "index.html#notebooks-all-the-way-down",
+    "href": "index.html#notebooks-all-the-way-down",
+    "title": "NBDev template repository (with VSCode niceities)",
+    "section": "Notebooks all the way down…",
+    "text": "Notebooks all the way down…\nThis README, just like everything else in nbdev, is authored in a notebook. That means we can do cool stuff like run code in the notebook, and have the output show up in the readme, like this:\n\nsay_hello(\"world\")\n\n'Hello world!'\n\n\nOr this:\n\n# Show an image of a cat:\nfrom IPython.display import Image\nImage(url=\"https://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg\")",
+    "crumbs": [
+      "NBDev template repository (with VSCode niceities)"
+    ]
+  },
+  {
+    "objectID": "index.html#todo",
+    "href": "index.html#todo",
+    "title": "NBDev template repository (with VSCode niceities)",
+    "section": "TODO",
+    "text": "TODO\n\nFigure out how console scripts work in settings.ini and add bootstrap to that.\nFigure out the proper order of setup.py stuff and the bootstrap.sh stuff. (Should bootstrap.sh just be something that setup.py runs? I am a Python noob.)\nShow how to use https://github.com/benbalter/jekyll-auth to use private Github pages for private repos (without having to upgrade to Github Enterprise)\nWhen the NBDev-VSCode extension gets published, add it as a recommended extension.",
+    "crumbs": [
+      "NBDev template repository (with VSCode niceities)"
+    ]
+  },
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "Core",
+    "section": "",
+    "text": "source\n\nsay_hello\n\n say_hello (to)\n\nSay hello to somebody\n\nsay_hello(\"there\")\n\n'Hello There!!'\n\n\n\nsource\n\n\nadd_one\n\n add_one (x)",
+    "crumbs": [
+      "Core"
+    ]
+  }
+]
