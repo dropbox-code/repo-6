@@ -261,13 +261,13 @@ jobs:
       uses: actions/setup-node@v3
     - continue-on-error: true
       name: Check dependency cache
-      uses: actions/cache@v3.3.1
+      uses: actions/cache@v4.1.1
       with:
         key: ${{ needs.job_build.outputs.dependency_cache_key }}
         path: ${{ env.CACHED_DEPENDENCY_PATHS }}
     - continue-on-error: true
       name: Check build cache
-      uses: actions/cache@v3.3.1
+      uses: actions/cache@v4.1.1
       with:
         key: ${{ env.BUILD_CACHE_KEY }}
         path: ${{ env.CACHED_BUILD_PATHS }}
@@ -541,14 +541,14 @@ jobs:
       uses: actions/setup-node@v3
     - continue-on-error: true
       name: Check dependency cache
-      uses: actions/cache@v3.3.1
+      uses: actions/cache@v4.1.1
       with:
         key: ${{ needs.job_install_deps.outputs.dependency_cache_key }}
         path: ${{ env.CACHED_DEPENDENCY_PATHS }}
     - continue-on-error: true
       id: cache_built_packages
       name: Check build cache
-      uses: actions/cache@v3.3.1
+      uses: actions/cache@v4.1.1
       with:
         key: ${{ env.BUILD_CACHE_KEY }}
         path: ${{ env.CACHED_BUILD_PATHS }}
@@ -822,7 +822,7 @@ jobs:
     - continue-on-error: true
       id: cache_dependencies
       name: Check dependency cache
-      uses: actions/cache@v3.3.1
+      uses: actions/cache@v4.1.1
       with:
         key: ${{ steps.compute_lockfile_hash.outputs.hash }}
         path: ${{ env.CACHED_DEPENDENCY_PATHS }}
@@ -1087,13 +1087,13 @@ jobs:
       uses: actions/setup-node@v3
     - continue-on-error: true
       name: Check dependency cache
-      uses: actions/cache@v3.3.1
+      uses: actions/cache@v4.1.1
       with:
         key: ${{ needs.job_build.outputs.dependency_cache_key }}
         path: ${{ env.CACHED_DEPENDENCY_PATHS }}
     - continue-on-error: true
       name: Check build cache
-      uses: actions/cache@v3.3.1
+      uses: actions/cache@v4.1.1
       with:
         key: ${{ env.BUILD_CACHE_KEY }}
         path: ${{ env.CACHED_BUILD_PATHS }}
