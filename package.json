@@ -162,7 +162,7 @@
     "mini-css-extract-plugin": "^2.0.0",
     "node-localstorage": "^2.1.6",
     "node-sessionstorage": "^1.0.0",
-    "nodemon": "^2.0.7",
+    "nodemon": "^3.1.7",
     "npm-audit-whitelister": "^1.0.2",
     "path-browserify": "^1.0.1",
     "peer-id": "^0.15.1",
