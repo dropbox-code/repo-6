@@ -160,7 +160,7 @@
     "libp2p-kad-dht": "^0.23.1",
     "libp2p-webrtc-star": "^0.23.0",
     "mini-css-extract-plugin": "^2.0.0",
-    "node-localstorage": "^2.1.6",
+    "node-localstorage": "^3.0.5",
     "node-sessionstorage": "^1.0.0",
     "nodemon": "^2.0.7",
     "npm-audit-whitelister": "^1.0.2",
